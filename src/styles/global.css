@@ -8,21 +8,63 @@
 /* Importar fonte do Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
-/* Variáveis CSS para cores */
+/* Variáveis CSS para tema escuro confortável */
 :root {
-  --primary-blue: #1a365d;
-  --accent-blue: #2b77e6;
-  --success-green: #38a169;
-  --success-light: #68d391;
-  --error-red: #e53e3e;
-  --error-light: #fc8181;
-  --warning-yellow: #d69e2e;
-  --neutral-gray: #4a5568;
-  --light-gray: #e2e8f0;
-  --white: #ffffff;
-  --background-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  --hover-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  /* Cores primárias do tema escuro */
+  --primary-dark: #1a1a2e;
+  --secondary-dark: #16213e;
+  --tertiary-dark: #0f172a;
+  
+  /* Tons de azul escuro suaves */
+  --accent-blue: #42a5f5;
+  --primary-blue: #1976d2;
+  --blue-dark: #1565c0;
+  
+  /* Verde suave para sucesso */
+  --success-green: #4caf50;
+  --success-light: #66bb6a;
+  --success-dark: #388e3c;
+  
+  /* Vermelho suave para erros */
+  --error-red: #e57373;
+  --error-light: #ef9a9a;
+  --error-dark: #d32f2f;
+  
+  /* Amarelo dourado para destaques */
+  --warning-yellow: #ffb74d;
+  --warning-light: #ffcc02;
+  
+  /* Tons de cinza para elementos */
+  --gray-900: #0f172a;
+  --gray-800: #1e293b;
+  --gray-700: #334155;
+  --gray-600: #475569;
+  --gray-500: #64748b;
+  --gray-400: #94a3b8;
+  --gray-300: #cbd5e1;
+  --gray-200: #e2e8f0;
+  --gray-100: #f1f5f9;
+  
+  /* Cores de texto */
+  --text-primary: #e0e7ff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-inverse: #1e293b;
+  
+  /* Fundo gradiente escuro confortável */
+  --background-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f172a 100%);
+  
+  /* Sombras para tema escuro */
+  --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  --hover-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  --inner-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  
+  /* Elementos de superfície */
+  --surface-1: rgba(255, 255, 255, 0.05);
+  --surface-2: rgba(255, 255, 255, 0.08);
+  --surface-3: rgba(255, 255, 255, 0.12);
+  
+  /* Configurações de design */
   --border-radius: 16px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -30,13 +72,15 @@
 body {
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   line-height: 1.6;
-  color: var(--white);
+  color: var(--text-primary);
   background: var(--background-gradient);
   min-height: 100vh;
   overflow-x: hidden;
+  /* Suavizar a transição visual */
+  transition: background-color 0.3s ease;
 }
 
-/* Fundo animado com ícones médicos sutis */
+/* Fundo animado com efeitos sutis para tema escuro */
 body::before {
   content: '';
   position: fixed;
@@ -45,11 +89,24 @@ body::before {
   width: 100%;
   height: 100%;
   background-image: 
-    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.04) 0%, transparent 50%);
+    radial-gradient(circle at 20% 50%, rgba(66, 165, 245, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(76, 175, 80, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(255, 183, 77, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 60% 30%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
   pointer-events: none;
   z-index: -1;
+  animation: floatBackground 20s ease-in-out infinite;
+}
+
+@keyframes floatBackground {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
 }
 
 /* Animações globais */
@@ -148,10 +205,18 @@ body::before {
   animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/* Acessibilidade */
+/* Acessibilidade aprimorada para tema escuro */
 *:focus {
+  outline: 3px solid var(--accent-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Melhor contraste para elementos focados */
+*:focus-visible {
   outline: 3px solid var(--warning-yellow);
   outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(66, 165, 245, 0.2);
 }
 
 /* Botão base reutilizável */
@@ -180,7 +245,7 @@ body::before {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
   transition: left 0.5s;
 }
 
@@ -224,14 +289,22 @@ body::before {
   }
 }
 
-/* Modo de alto contraste para acessibilidade */
+/* Modo de alto contraste para tema escuro */
 @media (prefers-contrast: high) {
   :root {
-    --primary-blue: #000080;
-    --accent-blue: #0066cc;
-    --success-green: #006600;
-    --error-red: #cc0000;
+    --primary-dark: #000000;
+    --accent-blue: #4dd0e1;
+    --success-green: #4caf50;
+    --error-red: #ff5252;
+    --text-primary: #ffffff;
+    --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
   }
+}
+
+/* Suporte para tema automático do sistema */
+@media (prefers-color-scheme: light) {
+  /* Manter tema escuro mesmo se o sistema preferir claro */
+  /* O usuário escolheu explicitamente o tema escuro */
 }
 
 /* Redução de movimento para usuários sensíveis */
