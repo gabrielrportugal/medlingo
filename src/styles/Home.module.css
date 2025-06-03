@@ -1,12 +1,281 @@
+/* Container principal da página inicial */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 2rem;
+  position: relative;
+  animation: fadeIn 1s ease-out;
 }
-.button {
-  padding: 10px 20px;
-  margin-top: 20px;
-  font-size: 16px;
+
+/* Ícones médicos decorativos no fundo */
+.container::before {
+  content: '🩺 💊 🧬 ⚕️ 🔬';
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  opacity: 0.1;
+  letter-spacing: 2rem;
+  animation: floatIcons 6s ease-in-out infinite;
+  z-index: -1;
+}
+
+.container::after {
+  content: '🫀 🧠 🦷 👁️ 🫁';
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  opacity: 0.08;
+  letter-spacing: 1.5rem;
+  animation: floatIcons 8s ease-in-out infinite reverse;
+  z-index: -1;
+}
+
+@keyframes floatIcons {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+/* Título principal */
+.title {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+  background: linear-gradient(45deg, var(--white), var(--warning-yellow), var(--white));
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  /* -webkit-text-fill-color: transparent; */
+  /* animation: gradientShift 3s ease-in-out infinite, slideUp 0.8s ease-out; */
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Subtítulo */
+.subtitle {
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  font-weight: 300;
+  margin-bottom: 3rem;
+  text-align: center;
+  opacity: 0.9;
+  animation: slideUp 0.8s ease-out 0.2s both;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+/* Botão principal */
+.startButton {
+  background: linear-gradient(135deg, var(--success-green), var(--success-light));
+  color: var(--white);
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-weight: 600;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--card-shadow);
+  position: relative;
+  overflow: hidden;
+  animation: slideUp 0.8s ease-out 0.4s both;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Efeito de brilho no botão */
+.startButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s;
+}
+
+.startButton:hover::before {
+  left: 100%;
+}
+
+.startButton:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: var(--hover-shadow);
+  background: linear-gradient(135deg, var(--success-light), var(--success-green));
+}
+
+.startButton:active {
+  transform: translateY(-1px) scale(0.98);
+  animation: pulse 0.3s ease-in-out;
+}
+
+/* Ícone do botão */
+.startButton::after {
+  content: '🚀';
+  font-size: 1.2em;
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.startButton:hover::after {
+  transform: translateX(5px);
+  animation: bounce 0.6s ease-out;
+}
+
+/* Card de features (opcional para melhorar a experiência) */
+.featuresCard {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin-top: 3rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: slideUp 0.8s ease-out 0.6s both;
+  max-width: 500px;
+  text-align: center;
+}
+
+.featuresTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--warning-yellow);
+}
+
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.featureItem {
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.featureItem::before {
+  content: '✓';
+  color: var(--success-light);
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .container::before,
+  .container::after {
+    display: none; /* Ocultar ícones em telas pequenas */
+  }
+  
+  .startButton {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+    min-width: 180px;
+  }
+  
+  .featuresCard {
+    padding: 1.5rem;
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    margin-bottom: 0.5rem;
+  }
+  
+  .subtitle {
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .startButton {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    min-width: 160px;
+  }
+  
+  .featuresCard {
+    padding: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .featureItem {
+    font-size: 0.9rem;
+  }
+}
+
+/* Animação de entrada da página */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Acessibilidade - foco visível */
+.startButton:focus {
+  outline: 3px solid var(--warning-yellow);
+  outline-offset: 3px;
+}
+
+/* Modo escuro/claro baseado na preferência do sistema */
+@media (prefers-color-scheme: dark) {
+  .featuresCard {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .featuresCard {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
 }
